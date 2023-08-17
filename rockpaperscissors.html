@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Rock, Paper, Scissors</title>
+    </head>
+    <body>
+        <script>
+            const choices = ['Rock', 'Paper', 'Scissors'];
+            function getComputerChoice(min, max) {
+                let randomNumber = Math.floor(Math.random() * (max-min) + min);
+                return choices[randomNumber];
+            }
+            console.log(getComputerChoice(0,3))
+               
+            
+        
+            
+            
+        </script>
+    </body>
+</html>
