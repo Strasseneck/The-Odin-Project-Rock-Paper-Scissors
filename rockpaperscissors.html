@@ -6,17 +6,88 @@
     </head>
     <body>
         <script>
-            const choices = ['Rock', 'Paper', 'Scissors'];
-            function getComputerChoice(min, max) {
-                let randomNumber = Math.floor(Math.random() * (max-min) + min);
+            // Choices array
+            const choices = ['rock', 'paper', 'scissors'];
+
+            // Get comp selection function
+            function getComputerChoice() {
+                let randomNumber = Math.floor(Math.random() * (3-0) + 0);
                 return choices[randomNumber];
             }
-            console.log(getComputerChoice(0,3))
-               
+
+            // User selection
+            function getUserChoice () {
+                let choice = prompt("Rock, paper or scissors?")
+                choice = choice.toLowerCase()
+                return choice;
+            }
+
+            // Play a round function
+            function playRound (playerSelection, computerSelection) {
+                if (playerSelection === computerSelection) {
+                    return "It's a draw!";
+                } else {
+                    switch(playerSelection) {
+                        case "rock" :
+                            if (computerSelection === "paper") {
+                                return "You lose! Paper beats rock!";
+                                break;
+                            } else if (computerSelection === "scissors") {
+                                return "You win! Rock beats scissors";
+                                break;
+                            }     
+                        case "paper":
+                            if (computerSelection === "scissors") {
+                                return "You lose! Scissors beat paper!";
+                                break;
+                            } else if (computerSelection === "rock") {
+                                return "You win! Paper beats rock";
+                                break;
+                            }
+                        case "scissors":
+                            if (computerSelection === "rock") {
+                                return "You lose! Rock beats scissors!";
+                                break;
+                            } else if (computerSelection === "paper") {
+                                return "You win! Scissors beat paper!"
+                                break;
+                            }
+                            }
+                        }
+                    }
+                     // Game function
+                     function game() {
+                        let scores = {player: 0, computer: 0}
+                        for (let i = 0; i < 5; i++) {
+                            const computerSelection = getComputerChoice();
+                            const playerSelection = getUserChoice();
+                            console.log(`computer select ${computerSelection}`);
+                            console.log(`player selects ${playerSelection}`);
+                            let winner = playRound(playerSelection, computerSelection);
+                            if (winner.includes("You win!")) {
+                                scores.player ++;
+                                console.log("Player wins!");
+                            } else if (winner.includes("You lose!")) {
+                                scores.computer ++;
+                            console.log("Computer wins!")
+                            } else if (winner === "It's a draw!") {
+                                console.log("It's a draw!");
+                                break;
+                            }
+                        }
+                        console.log(scores);
+                        if (scores.player > scores.computer) {
+                            return `Player wins! ${scores.player} to ${scores.computer}`;
+                        } else if (scores.computer > scores.player) {
+                        return `Player loses! ${scores.computer} to ${scores.player}`;
+                        }
+                }
+                    
+                    
+
             
-        
             
-            
+              
         </script>
     </body>
 </html>
