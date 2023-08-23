@@ -1,5 +1,14 @@
  // Player buttons
- const buttons = document.querySelectorAll('.btn');
+ const buttons = document.querySelectorAll('.img-btn');
+
+ // Results object
+ const results = { 1: 'You win!',
+                   2: 'You lose!', 
+                   3:'Draw!'}
+
+ // Scores 
+ let playerScore = 0;
+ let computerScore = 0;
 
 // Add event listener, pass values, call play round function
 buttons.forEach(button => button.addEventListener('click', () => {game(button)}))
@@ -7,80 +16,83 @@ buttons.forEach(button => button.addEventListener('click', () => {game(button)})
  // Get computer selection function
 function getComputerSelection() {
     const choices = ['rock', 'paper', 'scissors'];
-    let randomNumber = Math.floor(Math.random() * choices.length);
+    const randomNumber = Math.floor(Math.random() * choices.length);
     return choices[randomNumber];
  }
 
  // Game function
  function game(button){
+
+    // Scoreboard
+    const playerScoreBoard = document.getElementById('player-score');
+    const computerScoreBoard = document.getElementById('computer-score');
+    playerScoreBoard.textContent = `${playerScore}`;
+    if (playerScore === 0) {
+        playerScoreBoard.textContent = "";
+    }
+    computerScoreBoard.textContent = `${computerScore}`
+    if (computerScore === 0) {
+        computerScoreBoard.textContent = "";
+    }
     
     // Get selections
     const playerSelection = button.id;
     const computerSelection = getComputerSelection();
     
-    // Scores object call round
-    let scores = {player: 0, computer: 0}
-    let finalResult;
-
     // Play a round
-    let round = playRound(playerSelection, computerSelection);
+    const round = playRound(playerSelection, computerSelection);
     
     // Record scores
-    if (round.includes("You win!")) {
-        scores.player ++;
-    } else if (round.includes("You lose!")) {
-        scores.computer ++;
-    } else if (round === "It's a draw!") {
-    }
+    const gameHeader = document.getElementById('game-header');
+    if (round === results[1]) {
+        playerScore ++;
+        gameHeader.textContent = `${results[1]} ${playerSelection} beats ${computerSelection}`;
+    } else if (round == results[2]) {
+        computerScore ++;
+        gameHeader.textContent = `${results[2]} ${computerSelection} beats ${playerSelection}`;
 
-    // Check for end of game and final winner
-    if(scores.player >= 5) {
-        finalResult = 'You win!'
-        return finalWinner
-    } else if (scores.computer >= 5) {
-        finalResult = 'You lose!'
-        return finalWinner
+    } else if (round == results[3]) {
+        gameHeader.textContent = `${results[3]}`;
     }
+    
  }
 
  // Play round function
  function playRound (playerSelection, computerSelection) {
-
+    console.log(playerSelection, computerSelection);
     // Check for draw
     if (playerSelection === computerSelection) {
-        result = 'It\'s a draw';
-        return result;
+        return results[3];
     } else {
-
         // Check all other cases
         switch (playerSelection) {
             case 'rock':
             if (computerSelection === 'paper') {
-                result = 'You lose! Paper beats rock!';
-                return result;
+                return results[2];
             } else if (computerSelection === 'scissors') {
-                results = 'You win! Rock beats scissors!';
-                return result;
+                return results[1];
             }
             case 'paper':
                 if (computerSelection === 'scissors') {
-                    result = 'You lose! Scissors beat paper!';
-                    return result;
+                    return results[2];
                 } else if (computerSelection === 'rock') {
-                    result = 'You win! Paper beats rock!';
-                    return result;
+                    return results[1];
                 }
             case 'scissors':
                 if (computerSelection === 'rock') {
-                    result = 'You lose! Rock beats scissors!';
-                    return result;
+                    return results[2];
                 } else if (computerSelection === 'paper') {
-                    result = 'You win! Scissors beat paper!';
-                    return result;
+                    return results[3];
                 }
             }
         }
     }
+
+
+
+
+
+
 
 
 
