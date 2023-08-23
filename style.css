@@ -1,4 +1,4 @@
-h1 {
+h1, h2 {
     font-family: Comic Sans MS;
 }
 
@@ -9,6 +9,15 @@ p {
 .img-btn:hover {
     transition: .1s;
     transform: scale(1.25);
+}
+
+.img-play-btn:hover {
+    transition: .1s;
+    transform: scale(1.25);
+}
+
+button {
+    font-family: Comic Sans MS;
 }
 
 strong {
